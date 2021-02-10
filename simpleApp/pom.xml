@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>add</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <graalvm.version>21.0.0</graalvm.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+  </properties>
+
+  <dependencies>
+<!--    <dependency>-->
+<!--      <groupId>com.eclipsesource.minimal-json</groupId>-->
+<!--      <artifactId>minimal-json</artifactId>-->
+<!--      <version>0.9.5</version>-->
+<!--    </dependency>-->
+
+    <dependency>
+      <groupId>org.graalvm.sdk</groupId>
+      <artifactId>graal-sdk</artifactId>
+      <version>${graalvm.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.graalvm.nativeimage</groupId>
+      <artifactId>svm</artifactId>
+      <version>${graalvm.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.graalvm.nativeimage</groupId>
+        <artifactId>native-image-maven-plugin</artifactId>
+        <version>${graalvm.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>native-image</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <skip>false</skip>
+          <imageName>GraalSample</imageName>
+          <buildArgs>--no-fallback --shared -H:Optimize=2</buildArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+
+    </plugins>
+  </build>
+<profiles>
+
+  <profile>
+    <id>windows-app</id>
+          <activation>
+            <os><family>windows</family></os>
+          </activation>
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.6.0</version>
+          <executions>
+            <execution>
+              <id>windows-app</id>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <phase>package</phase>
+              <configuration>
+                <executable>winbuild.cmd</executable>
+                <arguments>
+<!--                  <argument>-id</argument>-->
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </build>
+  </profile>
+</profiles>
+
+</project>

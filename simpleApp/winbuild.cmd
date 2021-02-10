@@ -1,0 +1,1 @@
+cl app.cpp GraalSample.lib /Itarget /Fotarget\ /Fetarget\ /MD /link /libpath:target\
