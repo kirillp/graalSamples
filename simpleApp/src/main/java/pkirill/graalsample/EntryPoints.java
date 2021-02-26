@@ -12,4 +12,7 @@ public class EntryPoints {
   static int sub(IsolateThread thread, int x) {
     return 1 - x;
   }
+
+  @CEntryPoint(builtin=CEntryPoint.Builtin.CREATE_ISOLATE)
+  static native IsolateThread createIsolate();
 }

@@ -3,17 +3,8 @@
 #include "GraalSample.h"
 
 static graal_isolatethread_t * createGraalVM() {
-  graal_isolatethread_t* thread = 0;
-
-  int error = graal_create_isolate(0, 0, &thread);
-  if (error != 0) {
-    fprintf(stderr, "graal_create_isolate failed with %d\n", error);
-    fflush(stderr);
-    thread = 0;
-  }
-  return thread;
+  return EntryPoints__createIsolate__c6314d4f8cb5e822b953f5789ae2050531cad635();
 }
-
 
 int main() {
   graal_isolatethread_t* graalThread = createGraalVM();
