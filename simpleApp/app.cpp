@@ -4,12 +4,8 @@
 
 static graal_isolatethread_t * createGraalVM(__graal_uword gb) {
   graal_isolatethread_t* thread = 0;
-    graal_create_isolate_params_t params = {
-    __graal_create_isolate_params_version,
-    gb * 1024 * 1024 * 1024
-  };
 
-  int error = graal_create_isolate(&params, 0, &thread);
+  int error = graal_create_isolate(0, 0, &thread);
   if (error != 0) {
     fprintf(stderr, "graal_create_isolate failed with %d\n", error);
     fflush(stderr);
