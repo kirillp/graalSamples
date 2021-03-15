@@ -15,4 +15,9 @@ public class EntryPoints {
 
   @CEntryPoint(builtin=CEntryPoint.Builtin.CREATE_ISOLATE)
   static native IsolateThread createIsolate();
+
+  @CEntryPoint
+  static void kotlin(IsolateThread thread) {
+    KotlinTestKt.main();
+  }
 }
