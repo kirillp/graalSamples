@@ -12,6 +12,25 @@ inline char* getStringFromJava(graal_isolatethread_t* t, allocFn fn) {
   return EntryPoints__getString__4163a7ca6f61f06f3e122bc4c3e521213d5013fa(t, fn);
 }
 
+void readJavaStringTest(graal_isolatethread_t* graalThread) {
+  char * stringFromJava = getStringFromJava(graalThread, operator new);
+  fprintf(stdout, "string from graal: %s\n", stringFromJava);
+  fflush(stdout);
+  operator delete (stringFromJava);
+}
+
+void readJavaStringStressTest(graal_isolatethread_t* graalThread) {
+  fprintf(stdout, "string stress test 100m strings\n");
+  fflush(stdout);
+  for (int i = 100; i; --i) {
+    for (int i = 1000000; i; --i) {
+      char * stringFromJava = getStringFromJava(graalThread, operator new);
+      operator delete (stringFromJava);
+    }
+    fprintf(stdout, "*");fflush(stdout);
+  }
+}
+
 int main() {
   graal_isolatethread_t* graalThread = createGraalVM();
   if (graalThread) {
@@ -20,19 +39,8 @@ int main() {
     fprintf(stdout, "graal results: add(4) = %d, sub(7) = %d\n", add4, sub7);
     fflush(stdout);
 
-    allocFn fn = operator new;
-    char * stringFromJava = getStringFromJava(graalThread, fn);
-    fprintf(stdout, "string from graal: %s\n", stringFromJava);
-    fflush(stdout);
-    operator delete (stringFromJava);
-
-    for (int i = 100; i; --i) {
-      for (int i = 1000000; i; --i) {
-        char * stringFromJava = getStringFromJava(graalThread, fn);
-        operator delete (stringFromJava);
-      }
-      fprintf(stdout, "*");fflush(stdout);
-    }
+    readJavaStringTest(graalThread);
+    readJavaStringStressTest(graalThread);
 
     int error = graal_tear_down_isolate(graalThread);
   }
