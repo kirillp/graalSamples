@@ -9,7 +9,7 @@ static graal_isolatethread_t * createGraalVM() {
 typedef void* (*allocFn)(size_t length);
 
 inline char* getStringFromJava(graal_isolatethread_t* t, allocFn fn) {
-  return EntryPoints__getString__4163a7ca6f61f06f3e122bc4c3e521213d5013fa(t, fn);
+  return EntryPoints__getString__4163a7ca6f61f06f3e122bc4c3e521213d5013fa(t, (void*) fn);
 }
 
 void readJavaStringTest(graal_isolatethread_t* graalThread) {
