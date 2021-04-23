@@ -10,7 +10,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <graalvm.version>21.0.0</graalvm.version>
+    <graalvm.version>21.1.0</graalvm.version>
+    <main.class>pkirill.graalsample.EntryPoints</main.class>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
 
@@ -66,7 +67,12 @@
         <configuration>
           <skip>false</skip>
           <imageName>GraalSample</imageName>
-          <buildArgs>--no-fallback --shared -H:Optimize=2</buildArgs>
+          <buildArgs>
+            --no-fallback
+            --shared
+            -H:-SpawnIsolates
+            -H:Optimize=2
+            ${main.class}</buildArgs>
         </configuration>
       </plugin>
 
