@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>sampleTeaVM</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <teavm.version>0.7.0-dev-1195</teavm.version>
+    <teavm.c.mainClass>pkirill.sample.HelloTeaVM</teavm.c.mainClass>
+
+  </properties>
+
+  <dependencies>
+      <dependency>
+          <groupId>org.teavm</groupId>
+          <artifactId>teavm-classlib</artifactId>
+          <version>${teavm.version}</version>
+          <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.teavm</groupId>
+          <artifactId>teavm-core</artifactId>
+          <version>${teavm.version}</version>
+          <scope>provided</scope>
+      </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.teavm</groupId>
+        <artifactId>teavm-maven-plugin</artifactId>
+        <version>${teavm.version}</version>
+        <executions>
+          <execution>
+            <id>c-target</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+<!--              <targetDirectory>${teavm.c.targetDirectory}</targetDirectory>-->
+              <mainClass>${teavm.c.mainClass}</mainClass>
+              <optimizationLevel>FULL</optimizationLevel>
+              <targetType>C</targetType>
+              <minHeapSize>16</minHeapSize>
+              <maxHeapSize>512</maxHeapSize>
+<!--              <entryPointName>teavm_start</entryPointName>-->
+              <heapDump>true</heapDump>
+<!--              <minifying>${teavm.obfuscated}</minifying>-->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+
+    </plugins>
+  </build>
+
+    <repositories>
+        <repository>
+            <id>teavm-dev</id>
+            <url>https://teavm.org/maven/repository</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>teavm-dev</id>
+            <url>https://teavm.org/maven/repository</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

@@ -1,0 +1,1 @@
+cl -O2 target\javascript\all.c /Fotarget\ /Fetarget\
