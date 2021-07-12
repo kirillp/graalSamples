@@ -18,19 +18,19 @@
   </properties>
 
   <dependencies>
-      <dependency>
-          <groupId>org.teavm</groupId>
-          <artifactId>teavm-classlib</artifactId>
-          <version>${teavm.version}</version>
-          <scope>provided</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.teavm</groupId>
+      <artifactId>teavm-classlib</artifactId>
+      <version>${teavm.version}</version>
+      <scope>provided</scope>
+    </dependency>
 
-      <dependency>
-          <groupId>org.teavm</groupId>
-          <artifactId>teavm-core</artifactId>
-          <version>${teavm.version}</version>
-          <scope>provided</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.teavm</groupId>
+      <artifactId>teavm-core</artifactId>
+      <version>${teavm.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -46,15 +46,15 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-<!--              <targetDirectory>${teavm.c.targetDirectory}</targetDirectory>-->
+              <!--<targetDirectory>${teavm.c.targetDirectory}</targetDirectory>-->
               <mainClass>${teavm.c.mainClass}</mainClass>
               <optimizationLevel>FULL</optimizationLevel>
               <targetType>C</targetType>
               <minHeapSize>16</minHeapSize>
               <maxHeapSize>512</maxHeapSize>
-<!--              <entryPointName>teavm_start</entryPointName>-->
+              <!--<entryPointName>teavm_start</entryPointName>-->
               <heapDump>true</heapDump>
-<!--              <minifying>${teavm.obfuscated}</minifying>-->
+              <!--<minifying>${teavm.obfuscated}</minifying>-->
             </configuration>
           </execution>
         </executions>
@@ -80,46 +80,50 @@
     </plugins>
   </build>
 
-    <profiles>
-        <profile>
-            <id>windows-app</id>
-            <activation>
-                <os><family>windows</family></os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
-                        <executions>
-                            <execution>
-                                <id>windows-app</id>
-                                <goals><goal>exec</goal></goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <executable>winbuild.cmd</executable>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <id>windows-app</id>
+      <activation>
+        <os>
+          <family>windows</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <id>windows-app</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+                  <executable>winbuild.cmd</executable>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 
-    <repositories>
-        <repository>
-            <id>teavm-dev</id>
-            <url>https://teavm.org/maven/repository</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>teavm-dev</id>
-            <url>https://teavm.org/maven/repository</url>
-        </pluginRepository>
-    </pluginRepositories>
+  <repositories>
+    <repository>
+      <id>teavm-dev</id>
+      <url>https://teavm.org/maven/repository</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>teavm-dev</id>
+      <url>https://teavm.org/maven/repository</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>
