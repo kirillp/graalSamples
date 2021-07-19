@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>simpleApp</artifactId>
+  <artifactId>helloGraal</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -15,13 +15,7 @@
     <maven.compiler.target>11</maven.compiler.target>
 
   </properties>
-
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>com.eclipsesource.minimal-json</groupId>-->
-<!--      <artifactId>minimal-json</artifactId>-->
-<!--      <version>0.9.5</version>-->
-<!--    </dependency>-->
 
     <dependency>
       <groupId>org.graalvm.sdk</groupId>
@@ -64,9 +58,10 @@
           </execution>
         </executions>
         <configuration>
+          <mainClass>pkirill.graalsample.HelloGraal</mainClass>
           <skip>false</skip>
-          <imageName>GraalSample</imageName>
-          <buildArgs>--no-fallback --shared -H:Optimize=2</buildArgs>
+<!--          <imageName>GraalSample</imageName>-->
+          <buildArgs>--no-fallback</buildArgs>
         </configuration>
       </plugin>
 
@@ -79,37 +74,5 @@
     </plugins>
   </build>
 
-  <profiles>
-    <profile>
-      <id>windows-app</id>
-            <activation>
-              <os><family>windows</family></os>
-            </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.6.0</version>
-            <executions>
-              <execution>
-                <id>windows-app</id>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <phase>package</phase>
-                <configuration>
-                  <executable>winbuild.cmd</executable>
-                  <arguments>
-  <!--                  <argument>-id</argument>-->
-                  </arguments>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
 </project>
