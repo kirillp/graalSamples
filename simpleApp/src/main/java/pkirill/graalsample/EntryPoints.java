@@ -2,6 +2,7 @@ package pkirill.graalsample;
 
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.c.function.CEntryPoint;
+import org.graalvm.nativeimage.c.function.CFunction;
 import org.graalvm.nativeimage.c.function.CFunctionPointer;
 import org.graalvm.nativeimage.c.function.InvokeCFunctionPointer;
 import org.graalvm.nativeimage.c.type.CCharPointer;
@@ -39,5 +40,13 @@ public class EntryPoints {
     }
     a.write(b.length, (byte) 0);
     return a;
+  }
+
+  @CFunction
+  static native void c_nativeFunction(int value);
+
+  @CEntryPoint
+  static void callCFunction(IsolateThread thread, int value){
+    c_nativeFunction(value);
   }
 }
