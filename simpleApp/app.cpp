@@ -1,12 +1,9 @@
 #include <stdio.h>
 
 #include "GraalSample.h"
+#include "app.h"
 
-static graal_isolatethread_t * createGraalVM() {
-  return EntryPoints__createIsolate__c6314d4f8cb5e822b953f5789ae2050531cad635();
-}
 
-typedef void* (*allocFn)(size_t length);
 
 inline char* getStringFromJava(graal_isolatethread_t* t, allocFn fn) {
   return EntryPoints__getString__4163a7ca6f61f06f3e122bc4c3e521213d5013fa(t, (void*) fn);
@@ -36,7 +33,7 @@ extern "C" void c_nativeFunction(int value) {
   fflush(stdout);
 }
 
-int main() {
+/*int main() {
   graal_isolatethread_t* graalThread = createGraalVM();
   if (graalThread) {
     int add4 = EntryPoints__add__e294c015aa64461959a1b2cb50ba9cc185789b28(graalThread, 4);
@@ -50,4 +47,4 @@ int main() {
 
     int error = graal_tear_down_isolate(graalThread);
   }
-}
+}*/
